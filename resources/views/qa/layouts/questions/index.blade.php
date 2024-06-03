@@ -17,6 +17,9 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="card-footer">
+                        {{$questions->links()}}
+                    </div>
                 </div>
             </div>
         </div>
