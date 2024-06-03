@@ -13,7 +13,10 @@
 
 <body>
     @include('qa.layouts.partials._navbar')
-    @yield('content')
+    <div class="p-3">
+        @yield('content')
+
+    </div>
 
     @yield('page-level-scripts')
     @include('qa.layouts.partials._footer')
