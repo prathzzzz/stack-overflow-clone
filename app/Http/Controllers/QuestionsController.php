@@ -13,7 +13,7 @@ class QuestionsController extends Controller
     public function index()
     {
         //
-        $questions = Question::paginate(10);
+        $questions = Question::with('owner')->paginate(10);
         return view('qa.layouts.questions.index',compact('questions'));
     }
 
