@@ -7,14 +7,15 @@ use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Models\Question;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller implements HasMiddleware
 {
-    public static function middleware() : array
+    public static function middleware(): array
     {
         return [
-            new Middleware('auth',only:['create','store']),
-            new Middleware('trackQuestionView',only:['show'])
+            new Middleware('auth', only: ['create', 'store']),
+            new Middleware('trackQuestionView', only: ['show'])
         ];
     }
     /**
@@ -24,7 +25,7 @@ class QuestionsController extends Controller implements HasMiddleware
     {
         //
         $questions = Question::with('owner')->latest()->paginate(10);
-        return view('qa.layouts.questions.index',compact('questions'));
+        return view('qa.layouts.questions.index', compact('questions'));
     }
 
     /**
@@ -47,7 +48,7 @@ class QuestionsController extends Controller implements HasMiddleware
             'body' => $request->body
         ]);
 
-        session()->flash('success','Question has been added succesfully');
+        session()->flash('success', 'Question has been added succesfully');
         return redirect(route('questions.index'));
     }
 
@@ -57,7 +58,7 @@ class QuestionsController extends Controller implements HasMiddleware
     public function show(Question $question)
     {
         //
-        return view('qa.layouts.questions.show',compact(['question']));
+        return view('qa.layouts.questions.show', compact(['question']));
     }
 
     /**
@@ -66,7 +67,9 @@ class QuestionsController extends Controller implements HasMiddleware
     public function edit(Question $question)
     {
         //
-        return view('qa.layouts.questions.edit',compact('question'));
+        Gate::authorize('edit', $question);
+
+        return view('qa.layouts.questions.edit', compact('question'));
     }
 
     /**
@@ -75,11 +78,12 @@ class QuestionsController extends Controller implements HasMiddleware
     public function update(UpdateQuestionRequest $request, Question $question)
     {
         //
+        Gate::authorize('update', $question);
         $question->update([
             'title' => $request->title,
             'body' => $request->body
         ]);
-        return redirect(route('questions.index'))->with('success','Question has been updated successfully!');
+        return redirect(route('questions.index'))->with('success', 'Question has been updated successfully!');
     }
 
     /**
@@ -88,9 +92,9 @@ class QuestionsController extends Controller implements HasMiddleware
     public function destroy(Question $question)
     {
         //
+        Gate::authorize('delete', $question);
+
         $question->delete();
-        return redirect(route('questions.index'))->with('success','Question has been deleted successfully!');
-
-
+        return redirect(route('questions.index'))->with('success', 'Question has been deleted successfully!');
     }
 }
