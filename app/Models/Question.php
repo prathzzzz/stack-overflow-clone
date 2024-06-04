@@ -26,6 +26,11 @@ class Question extends Model
         return "questions/{$this->id}";
     }
 
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     public function getAnswerStyleAttribute()
     {
         if ($this->answers_count > 0) {
