@@ -39,7 +39,7 @@
                                                 <a href="{{ $question->url }}">{{ $question->title }}</a>
                                             </h3>
                                             <div class="">
-                                                @can('view',$question)
+                                                @can('edit-function',$question)
                                                     <a href="{{ route('questions.edit', $question->id) }}"
                                                         class="btn btn-sm btn-outline-warning">Edit</a>
                                                 @endcan
