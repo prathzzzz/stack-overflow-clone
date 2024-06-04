@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Questions\CreateQuestionRequest;
 use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Models\Question;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -15,6 +14,7 @@ class QuestionsController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('auth',only:['create','store']),
+            new Middleware('trackQuestionView',only:['show'])
         ];
     }
     /**
@@ -57,6 +57,7 @@ class QuestionsController extends Controller implements HasMiddleware
     public function show(Question $question)
     {
         //
+        return view('qa.layouts.questions.show',compact(['question']));
     }
 
     /**
