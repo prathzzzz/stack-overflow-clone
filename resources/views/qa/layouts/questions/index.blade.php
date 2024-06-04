@@ -5,8 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between">
                         <h2>All Questions</h2>
+                        <a href="{{route('questions.create')}}" class="btn btn-outline-primary">Ask a Question!</a>
                     </div>
                     <div class="row">
                         @foreach ($questions as $question)
