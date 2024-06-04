@@ -87,5 +87,9 @@ class QuestionsController extends Controller implements HasMiddleware
     public function destroy(Question $question)
     {
         //
+        $question->delete();
+        return redirect(route('questions.index'))->with('success','Question has been deleted successfully!');
+
+
     }
 }
