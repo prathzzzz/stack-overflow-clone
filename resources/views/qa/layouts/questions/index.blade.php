@@ -36,7 +36,7 @@
                                         <p>Asked By: <a href="#">{{ $question->owner->name }}</a>
                                             <span class="text-muted">{{ $question->created_date }}</span>
                                         </p>
-                                        <p>{{Str::limit($question->body),250}}</p>
+                                        <p>{!!Str::limit($question->body,250)!!}</p>
                                     </div>
                                 </div>
                             </div>
