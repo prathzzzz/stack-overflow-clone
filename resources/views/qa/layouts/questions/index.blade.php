@@ -7,7 +7,10 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h2>All Questions</h2>
-                        <a href="{{ route('questions.create') }}" class="btn btn-outline-primary">Ask a Question!</a>
+                        @auth
+                            <a href="{{ route('questions.create') }}" class="btn btn-outline-primary">Ask a Question!</a>
+
+                        @endauth
                     </div>
                     <div class="row">
                         @foreach ($questions as $question)
@@ -36,13 +39,21 @@
                                                 <a href="{{ $question->url }}">{{ $question->title }}</a>
                                             </h3>
                                             <div class="">
-                                                <a href="{{ route('questions.edit', $question->id) }}"
-                                                    class="btn btn-sm btn-outline-warning">Edit</a>
-                                                <form action="{{ route('questions.destroy', $question->id) }}" method="POST" class="d-inline-block">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                                                </form>
+                                                @can('view',$question)
+                                                    <a href="{{ route('questions.edit', $question->id) }}"
+                                                        class="btn btn-sm btn-outline-warning">Edit</a>
+                                                @endcan
+
+                                                @can('delete',$question)
+                                                    <form action="{{ route('questions.destroy', $question->id) }}"
+                                                        method="POST" class="d-inline-block">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger">Delete</button>
+                                                    </form>
+                                                @endcan
+
                                             </div>
                                         </div>
 
