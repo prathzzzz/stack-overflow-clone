@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Questions\CreateQuestionRequest;
+use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -64,14 +65,20 @@ class QuestionsController extends Controller implements HasMiddleware
     public function edit(Question $question)
     {
         //
+        return view('qa.layouts.questions.edit',compact('question'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question)
+    public function update(UpdateQuestionRequest $request, Question $question)
     {
         //
+        $question->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+        return redirect(route('questions.index'))->with('success','Question has been updated successfully!');
     }
 
     /**
