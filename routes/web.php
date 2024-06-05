@@ -23,3 +23,4 @@ require __DIR__.'/auth.php';
 /** Project Routes */
 Route::resource('/questions',QuestionsController::class)->except('show');
 Route::get('/questions/{slug}',[QuestionsController::class,'show'])->name('questions.show');
+Route::resource('questions.answers',\App\Http\Controllers\AnswersController::class)->except('create');
