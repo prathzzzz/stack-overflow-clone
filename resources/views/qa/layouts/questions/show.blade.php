@@ -59,7 +59,8 @@
         @include('qa.answers._create')
 
     </div>
-    @section('page-level-scripts')
-        <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
-    @endsection
+
+@endsection
+@section('page-level-scripts')
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 @endsection
