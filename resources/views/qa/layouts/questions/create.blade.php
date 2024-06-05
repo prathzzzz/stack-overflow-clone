@@ -1,7 +1,5 @@
 @extends('qa.layouts.app')
-@section('page-level-styles')
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
-@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -43,7 +41,5 @@
             </div>
         </div>
     </div>
-@section('page-level-scripts')
-    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
-@endsection
+
 @endsection
