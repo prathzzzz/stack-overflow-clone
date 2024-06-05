@@ -26,7 +26,7 @@
                                             <i class="fa fa-caret-down fa-3x"></i>
                                         </a>
                                     </div>
-                                    <div class="ml-4 mt-2">
+                                    <div class="m-4">
                                         <a href="#" title="Mark as Fav">
                                             <i class="fa fa-star fa-2x text-dark"></i>
                                         </a>
