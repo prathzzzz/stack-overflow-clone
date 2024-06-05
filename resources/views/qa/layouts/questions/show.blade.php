@@ -16,7 +16,7 @@
                             <div></div>
                             <div class="d-flex flex-column">
                                 <div class="text-muted mb-2 text-right">
-                                    Asked At: {{$question->created_at}}
+                                    Asked At: {{$question->created_date}}
                                 </div>
                                 <div class="d-flex mb-2 ">
                                     <div>
@@ -47,7 +47,7 @@
                                 <div></div>
                                 <div class="d-flex flex-column">
                                     <div class="text-muted mb-2 text-right">
-                                        Answered At: {{$answer->created_at}}
+                                        Answered At: {{$answer->created_date}}
                                     </div>
                                     <div class="d-flex mb-2">
                                         <div>
