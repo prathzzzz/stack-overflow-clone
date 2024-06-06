@@ -71,4 +71,9 @@ class QuestionPolicy
         //
         return $user->id === $question->user_id;
     }
+
+    public function markAsFavorite(User $user, Question $question)
+    {
+        return $user->id !== $question->user_id;
+    }
 }
