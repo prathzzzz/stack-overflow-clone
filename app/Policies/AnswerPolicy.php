@@ -66,4 +66,10 @@ class AnswerPolicy
     {
         //
     }
+
+    public function markAsBest(User $user,Answer $answer) : bool
+    {
+        return $user->id === $answer->question->user_id;
+    }
 }
+
