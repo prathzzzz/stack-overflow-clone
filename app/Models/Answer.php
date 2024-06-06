@@ -31,4 +31,14 @@ class Answer extends Model
     {
         return $this->created_at->diffForHumans();
     }
+
+    public function getBestAnswerStyleAttribute()
+    {
+        return $this->question->best_answer_id === $this->id ? 'text-success' : '';
+    }
+
+    public function getIsBestAttribute()
+    {
+        return $this->question->best_answer_id===$this->id;
+    }
 }
