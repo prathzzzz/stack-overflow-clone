@@ -7,6 +7,7 @@ use App\Http\Requests\Questions\CreateAnswerRequest;
 use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AnswersController extends Controller
 {
@@ -66,6 +67,7 @@ class AnswersController extends Controller
     public function update(UpdateAnswerRequest $request, Question $question, Answer $answer)
     {
         //
+        Gate::authorize('update',$answer);
         $answer->update([
             'body' => $request->body,
         ]);
@@ -80,6 +82,8 @@ class AnswersController extends Controller
     public function destroy(Question $question, Answer $answer)
     {
         //
+        Gate::authorize('delete',$answer);
+
         $answer->delete();
         session()->flash('success', 'Your answer was deleted successfully');
         return redirect($question->url);
