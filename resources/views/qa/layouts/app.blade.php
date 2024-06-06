@@ -15,6 +15,7 @@
 
 <body>
     @include('qa.layouts.partials._navbar')
+    @include('qa.layouts.partials._alert')
     <div class="p-3">
         @yield('content')
 
@@ -23,6 +24,7 @@
     @yield('page-level-scripts')
     @vite(['resources/js/app.js'])
     @include('qa.layouts.partials._footer')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
