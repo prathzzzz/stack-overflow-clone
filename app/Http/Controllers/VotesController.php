@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class VotesController extends Controller
 {
-   
+
     public function voteQuestion(Question $question, int $vote)
     {
         if (auth()->user()->hasVoteForQuestion($question)) {
