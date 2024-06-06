@@ -3,9 +3,9 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\Question;
 
 class NewReplyAdded extends Notification
 {
@@ -14,9 +14,9 @@ class NewReplyAdded extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(Question $question)
     {
-        //
+        $this->question = $question;
     }
 
     /**
@@ -26,7 +26,7 @@ class NewReplyAdded extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -35,8 +35,8 @@ class NewReplyAdded extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('A new reply was added to your question.')
+                    ->action('View Question', url($this->question->url))
                     ->line('Thank you for using our application!');
     }
 
@@ -48,7 +48,7 @@ class NewReplyAdded extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'question' =>  $this->question
         ];
     }
 }
