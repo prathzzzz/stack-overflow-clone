@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,4 @@ require __DIR__.'/auth.php';
 Route::resource('/questions',QuestionsController::class)->except('show');
 Route::get('/questions/{slug}',[QuestionsController::class,'show'])->name('questions.show');
 Route::resource('questions.answers',\App\Http\Controllers\AnswersController::class)->except('create');
+Route::put('questions/{question}/answers/{answer}/markAsBest',[AnswersController::class,'markAsBest'])->name('questions.answers.markAsBest');
