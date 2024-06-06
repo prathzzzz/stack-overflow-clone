@@ -65,4 +65,31 @@ class Question extends Model
     {
         return $this->favorites()->where('user_id', auth()->id())->count() > 0;
     }
+
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'vote')->withTimestamps()->withPivot(['vote']);
+    }
+
+    public function vote(int $vote)
+    {
+        $this->votes()->attach(auth()->id(), ['vote' => $vote]);
+        if ($vote < 0) {
+            $this->decrement('votes_count');
+        } else {
+            $this->increment('votes_count');
+        }
+    }
+
+    public function updateVote(int $vote)
+    {
+        $this->votes()->updateExistingPivot(auth()->id(), ['vote' => $vote]);
+        if ($vote < 0) {
+            $this->decrement('votes_count');
+            $this->decrement('votes_count');
+        } else {
+            $this->increment('votes_count');
+            $this->increment('votes_count');
+        }
+    }
 }
