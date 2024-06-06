@@ -10,15 +10,15 @@
                     <div class="d-flex justify-content-between mr-3">
                         <div class="d-flex">
                             <div>
-                                @can('update',$answer)
-                                    <a href="{{ route('questions.answers.edit',[$question,$answer])}}"
-                                       class="btn btn-outline-warning btn-sm">
+                                @can('update', $answer)
+                                    <a href="{{ route('questions.answers.edit', [$question, $answer]) }}"
+                                        class="btn btn-outline-warning btn-sm">
                                         Edit
                                     </a>
                                 @endcan
-                                @can('delete',$answer)
-                                    <form action="{{route('questions.answers.destroy',[$question,$answer])}}"
-                                          method="post" class="d-inline-block">
+                                @can('delete', $answer)
+                                    <form action="{{ route('questions.answers.destroy', [$question, $answer]) }}"
+                                        method="post" class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
@@ -33,10 +33,24 @@
                                 </a>
                             </div>
                             <div class="m-4">
-                                <a href="#" title="Mark as Fav">
+                                @can('markAsBest', $answer)
+                                    <form action="{{ route('questions.answers.markAsBest', [$question, $answer]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn">
+                                            <i class="fa fa-check fa-2x {{ $answer->best_answer_Style }}"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    @if ($answer->is_best)
+                                        <i class="fa fa-check fa-2x {{ $answer->best_answer_style }}"></i>
+                                    @endif
+                                @endcan
+                                {{-- <a href="#" title="Mark as Fav">
                                     <i class="fa fa-star fa-2x text-dark"></i>
                                 </a>
-                                <h4>123</h4>
+                                <h4>123</h4> --}}
                             </div>
                         </div>
                         <div class="d-flex flex-column">
@@ -46,7 +60,7 @@
                             <div class="d-flex mb-2">
                                 <div>
                                     <img src="{{ $answer->author->avatar }}"
-                                         alt="Avatar of  {{ $answer->author->name }}">
+                                        alt="Avatar of  {{ $answer->author->name }}">
                                 </div>
                                 <div class="m-2">
                                     {{ $answer->author->name }}
