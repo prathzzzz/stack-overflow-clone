@@ -4,6 +4,7 @@ use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VotesController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,4 @@ Route::post('/questions/{question}/mark-as-fav',[FavoritesController::class,'sto
 
 Route::delete('/questions/{question}/mark-as-unfav',[FavoritesController::class,'destroy'])->name('questions.unfavorite');
 Route::post('/questions/{question}/vote/{vote}',[VotesController::class,'voteQuestion'])->name('questions.vote');
+Route::get('users/notifications',[UsersController::class,'notifications'])->name('users.notifications');
