@@ -6,6 +6,7 @@ use App\Http\Requests\Answers\UpdateAnswerRequest;
 use App\Http\Requests\Questions\CreateAnswerRequest;
 use App\Models\Answer;
 use App\Models\Question;
+use App\Notifications\NewReplyAdded;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -40,6 +41,7 @@ class AnswersController extends Controller
             ]
         );
 
+        $question->owner->notify(new NewReplyAdded($question));
         session()->flash('success', 'Your answer was submitted successfully');
         return redirect($question->url);
     }
