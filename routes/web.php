@@ -29,4 +29,4 @@ Route::resource('questions.answers',\App\Http\Controllers\AnswersController::cla
 Route::put('questions/{question}/answers/{answer}/markAsBest',[AnswersController::class,'markAsBest'])->name('questions.answers.markAsBest');
 Route::post('/questions/{question}/mark-as-fav',[FavoritesController::class,'store'])->name('questions.favorite');
 
-Route::post('/questions/{question}/mark-as-unfav',[FavoritesController::class,'destroy'])->name('questions.unfavorite');
+Route::delete('/questions/{question}/mark-as-unfav',[FavoritesController::class,'destroy'])->name('questions.unfavorite');
