@@ -56,9 +56,32 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+    public function votesQuestion()
+    {
+        return $this->morphedByMany(Question::class, 'vote')->withTimestamps();
+    }
+
+    public function votesAnswers()
+    {
+        return $this->morphedByMany(Answer::class, 'vote')->withTimestamps();
+    }
+
     public  function  getAvatarAttribute()
     {
         $size = 40;
         return "https://ui-avatars.com/api/?name={$this->name}&rounded=true&size={$size}";
+    }
+    public function hasUpVoteForQuestion(Question $question)
+    {
+        return $this->votesQuestions()->where(['vote' => 1, 'vote_id' => $question->id])->exists();
+    }
+
+    public function hasDownVoteForQuestion(Question $question)
+    {
+        return $this->votesQuestions()->where(['vote' => -1, 'vote_id' => $question->id])->exists();
+    }
+    public function hasVoteForQuestion(Question $question)
+    {
+        return $this->hasUpVoteForQuestion($question) || $this->hasDownVoteForQuestion($question);
     }
 }
